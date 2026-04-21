@@ -1,0 +1,3 @@
+=== NUEVA SESION DEL SISTEMA ===
+[INGRESO] Placa:JHY147 Hora:8:5 Espacio:(3,2)
+[SALIDA] Placa:JHY147 Ingreso:8:5 Salida:23:5 Tiempo:900min Cobro:$90000
