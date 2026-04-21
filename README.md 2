@@ -1,0 +1,29 @@
+Profundizacion en la innovacion 
+
+Se implementó un sistema de log usando <fstream> con el modo ios::app, que agrega líneas al final del archivo sin borrar lo anterior. 
+Cada vez que un vehículo entra o sale, se construye una cadena de texto con <sstream> que incluye la placa, hora de ingreso, hora de salida, tiempo de permanencia y valor cobrado, y se escribe en historial_parqueadero.txt. 
+Esto simula el comportamiento de sistemas reales de auditoría donde cada transacción queda registrada aunque el programa se cierre. 
+El usuario puede consultar el historial completo desde el menú (opción 7) sin necesidad de abrir el archivo manualmente.
+
+Se usaron códigos de escape ANSI (\033[Xm) para colorear cada símbolo del mapa según su tipo, implementado en la función color_de_celda(). 
+El mapa se actualiza automáticamente con cada ingreso y salida, reflejando en tiempo real qué espacios están libres u ocupados. 
+Esto convierte una salida de texto plano en una interfaz visual intuitiva sin necesidad de librerías externas. 
+Cada color tiene un significado claro: verde=disponible, rojo=ocupado, amarillo=entrada, magenta=salida, cyan=ruta activa, gris=pared.
+
+Cuando se registra un ingreso, se genera una copia temporal del mapa y se traza sobre ella una ruta en dos fases: 
+primero baja verticalmente por el pasillo central desde la entrada (fila 0) hasta la fila del espacio destino, luego se desplaza horizontalmente hasta la columna exacta. 
+Las celdas del recorrido se marcan con * en color cyan. 
+Esta copia se imprime y se descarta, dejando el mapa original intacto. 
+Esto simula el funcionamiento de sistemas de guiado de parqueaderos reales donde una pantalla indica al conductor el camino hacia su espacio.
+
+La función mostrar_estadisticas() calcula el porcentaje de ocupación en tiempo real y lo representa como una barra de 30 bloques donde los bloques llenos se muestran en rojo y los vacíos en verde. 
+Adicionalmente, si el porcentaje supera el 80%, se despliega un mensaje de advertencia en color amarillo. 
+Esto replica el comportamiento de paneles de control de parqueaderos reales que alertan al operador cuando la capacidad está casi agotada, permitiendo tomar decisiones como cerrar el acceso anticipadamente.
+
+La función buscar_vehiculo() permite consultar cualquier placa del historial. 
+Si el vehículo sigue activo, calcula un cobro estimado usando la hora actual del sistema y la función calcular_valor(), mostrando el monto acumulado hasta ese instante. 
+Esto es útil para que el operador informe al conductor cuánto llevará pagado antes de decidir salir, simulando las pantallas de consulta de tarifa previa que tienen los parqueaderos modernos.
+
+La función placa_es_valida() verifica carácter por carácter que la placa tenga exactamente 6 caracteres, que los primeros 3 sean letras (mayúsculas o minúsculas) y que los últimos 3 sean dígitos del 0 al 9. 
+Adicionalmente, toda placa ingresada se convierte automáticamente a mayúsculas antes de validarse, evitando duplicados por diferencia de capitalización. 
+También se verifica que una misma placa no pueda entrar dos veces al mismo tiempo. Esto previene errores de registro y simula el comportamiento de los sistemas reales que validan placas contra bases de datos al momento del ingreso.
